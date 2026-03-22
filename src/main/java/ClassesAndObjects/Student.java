@@ -1,6 +1,6 @@
 package ClassesAndObjects;
 
-public class Student {
+class Student {
     int age;
     String name;
 
