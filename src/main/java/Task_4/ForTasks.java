@@ -7,8 +7,8 @@ public class ForTasks {
 //        printNumbers();
 //        printSum();
 //        printMultiplicationTable();
-//        checkIsSimple();
-        printDigits();
+        checkIsSimple();
+//        printDigits();
     }
 
     public static void printNumbers() {
@@ -20,8 +20,12 @@ public class ForTasks {
 
     public static void printSum() {
         Scanner scan = new Scanner(System.in);
-        System.out.print("Введите число: ");
+        System.out.print("Введите число больше 0: ");
         int num = scan.nextInt();
+        if (num <= 0) {
+            System.out.println("Введенное число должно быть больше 0");
+            return;
+        }
         int sum = 0;
         for (int i = 1; i <= num; i++) {
             sum += i;
@@ -42,7 +46,7 @@ public class ForTasks {
         Scanner scan = new Scanner(System.in);
         System.out.print("Введите число: ");
         int num = scan.nextInt();
-        boolean isPrime = true;
+        boolean isPrime = num > 1;
         for (int i = 2; i < num; i++) {
             if (num % i == 0) {
                 isPrime = false;

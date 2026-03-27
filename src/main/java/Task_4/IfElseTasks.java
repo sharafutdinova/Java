@@ -6,10 +6,10 @@ public class IfElseTasks {
     public static void main(String[] args) {
 //        checkNum();
 //        findMax();
-//        printGrade();
+        printGrade();
 //        System.out.println(checkChetnost());
 //        calcDiscount();
-        printTestResult();
+//        printTestResult();
     }
 
     public static void checkNum() {
@@ -39,8 +39,7 @@ public class IfElseTasks {
         System.out.print("Введите число от 1 до 5: ");
         int num = scan.nextInt();
         String result = switch (num) {
-            case 1 -> "Неудовлетворительно";
-            case 2 -> "Неудовлетворительно";
+            case 1, 2 -> "Неудовлетворительно";
             case 3 -> "Удовлетворительно";
             case 4 -> "Хорошо";
             case 5 -> "Отлично";

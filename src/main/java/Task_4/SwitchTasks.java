@@ -6,7 +6,7 @@ public class SwitchTasks {
     public static void main(String[] args) {
 //        printWeekDay();
 //        printTicketPrice();
-//        convertDigits();
+//        convertDig6its();
 //        printMessage();
         mathOperations();
     }
@@ -33,8 +33,10 @@ public class SwitchTasks {
         System.out.print("Введите число от 1 до 7: ");
         int day = scan.nextInt();
         int price = 0;
-        if (day >= 1 && day <= 5) price = 300;
-        else if (day == 6 || day == 7) price = 450;
+        switch (day) {
+            case 1, 2, 3, 4, 5 -> price = 300;
+            case 6, 7 -> price = 450;
+        }
         System.out.println("стоимость билета в кино " + price + "руб.");
     }
 
@@ -80,7 +82,7 @@ public class SwitchTasks {
         scan.nextLine();
         System.out.print("Введите операцию +, -, *, /: ");
         String operation = scan.nextLine();
-        int result = 0;
+        double result = 0;
         String error = "";
         switch (operation) {
             case "+":
@@ -94,7 +96,7 @@ public class SwitchTasks {
                 break;
             case "/":
                 if (num_2 != 0)
-                    result = num_1 / num_2;
+                    result = (double) num_1 / num_2;
                 else error = "Нельзя делить на 0";
                 break;
             default:

@@ -6,8 +6,8 @@ public class BreakTasks {
     public static void main(String[] args) {
 //        printPositiveSum();
 //        printDigits();
-//        printPositiveNumbers();
-        askCommand();
+        printPositiveNumbers();
+//        askCommand();
     }
 
     public static void printPositiveSum() {
@@ -17,7 +17,7 @@ public class BreakTasks {
         while (true) {
             System.out.print("Введите число ");
             num = scan.nextInt();
-            if (!(num >= 0)) break;
+            if (num < 0) break;
             sum += num;
         }
         System.out.println(sum);
@@ -38,10 +38,10 @@ public class BreakTasks {
             System.out.print("Введите число ");
             num = scan.nextInt();
             count++;
-            if (num < 0) continue;
+            if (num <= 0) continue;
             System.out.println(num);
         }
-        while (count < 6);
+        while (num != 0);
     }
 
     public static void askCommand() {
