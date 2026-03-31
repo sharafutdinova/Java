@@ -1,9 +1,6 @@
 package Task_8.generics_additional;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,13 +30,13 @@ public class Main {
 // Ограничение снизу
 //Задача: Реализуйте метод, который принимает List<T super Integer> и добавляет в него несколько чисел.
         List<Number> numberList = new LinkedList<>();
-        addNumbers(numberList, 5);
-        addNumbers(numberList, 9);
+        addNumbers(numberList, new LinkedList<>(Arrays.asList(100, 101)));
+        addNumbers(numberList, new LinkedList<>(Arrays.asList(200, 201)));
         System.out.println("Task 4 " + numberList);
 
 //Обобщённый интерфейс
 //Задача: Создайте интерфейс Container<T>, содержащий методы add(T item) и get().
-        ContainterClass<String> containterClass = new ContainterClass();
+        ContainterClass<String> containterClass = new ContainterClass<>();
         containterClass.add("Container");
         System.out.println("Task 5 " + containterClass.get());
 
@@ -54,15 +51,15 @@ public class Main {
     }
 
     public static <T> Double sum(List<? extends Number> list) {
-        Double sum = 0.0;
+        double sum = 0.0;
         for (Number num : list) {
             sum = sum + num.doubleValue();
         }
         return sum;
     }
 
-    public static <T> void addNumbers(List<? super Integer> list, Integer num) {
-        list.add(num);
+    public static <T> void addNumbers(List<? super Integer> mainList, List<Integer> additionalList) {
+        mainList.addAll(additionalList);
     }
 
     public static <K, V> void printMap(Map<K, V> map) {

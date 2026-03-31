@@ -1,8 +1,8 @@
 package Task_8.generics.part_3;
 
 public class Pair <K, V>{
-    K key;
-    V value;
+    private K key;
+    private V value;
 
     public K getKey() {
         return key;

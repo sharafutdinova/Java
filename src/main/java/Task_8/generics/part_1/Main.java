@@ -14,12 +14,5 @@ public class Main {
         Box<Integer> integerBox = new Box<>();
         integerBox.setValue(13);
         System.out.println(integerBox.getValue());
-
-        Box testbox = new Box();
-        testbox.setValue(14);
-        System.out.println(testbox.getValue());
-        testbox.setValue("Четырнадцать");
-        System.out.println(testbox.getValue());
-
     }
 }
