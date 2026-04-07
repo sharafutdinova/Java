@@ -1,6 +1,7 @@
 package Task_11;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class MethodsForTests {
     public boolean isEven(int number) {
@@ -39,7 +40,9 @@ public class MethodsForTests {
     }
 
     public int findSecondMax(int[] numbers) {
-        return Arrays.stream(numbers).distinct().sorted().skip(numbers.length - 2).findFirst().orElseThrow();
+        return Arrays.stream(numbers).distinct().boxed()
+                .sorted(Comparator.reverseOrder()).skip(1)
+                .mapToInt(Integer::intValue).max().orElseThrow();
     }
 
     public int countWords(String sentence) {

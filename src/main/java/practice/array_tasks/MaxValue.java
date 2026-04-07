@@ -7,8 +7,10 @@ import java.util.OptionalInt;
 public class MaxValue {
     static void main(String[] args) {
         int[] nums = {100, 2, 3, 4, 5, 5, 2, 1, 8, 9, 3};
+        int[] negativeNums = {-2, -3, -7, -1, -2};
         System.out.println(findMax(nums).orElse(-1));
         System.out.println(findSecondMax(nums).orElse(-1));
+        System.out.println(findSecondMax(negativeNums).orElse(-1));
         System.out.println(getSum(nums));
     }
 

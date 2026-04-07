@@ -40,15 +40,13 @@ public class FactorialTest extends TestSetup {
 
     @Test
     public void userCanNotGetFactorialForNegativeNumber() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            methodsForTests.factorial(-100);
-        }, "Calculating factorial for negative value should lead to IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () ->
+                methodsForTests.factorial(-100), "Calculating factorial for negative value should lead to IllegalArgumentException");
     }
 
     @Test
     public void userCanNotGetFactorialForLargeNumber() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            methodsForTests.factorial(9999);
-        }, "Calculating factorial for large value should lead to IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () ->
+                methodsForTests.factorial(9999), "Calculating factorial for large value should lead to IllegalArgumentException");
     }
 }

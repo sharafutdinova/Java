@@ -1,5 +1,6 @@
 package task_11;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -22,7 +23,6 @@ public class ReverseTest extends TestSetup {
         return Stream.of(
                 Arguments.of("Alsu", "uslA"),
                 Arguments.of("Today is 31!", "!13 si yadoT"),
-                Arguments.of(null, null),
                 Arguments.of("", ""));
     }
 
@@ -31,5 +31,12 @@ public class ReverseTest extends TestSetup {
     public void userCanGetReversedString(String initValue, String expectedValue) {
         String actualResult = methodsForTests.reverse(initValue);
         assertEquals(expectedValue, actualResult);
+    }
+
+    @Test
+    public void userCanGetReversedStringForNull() {
+        String initValue = null;
+        String actualResult = methodsForTests.reverse(initValue);
+        assertEquals(initValue, actualResult);
     }
 }

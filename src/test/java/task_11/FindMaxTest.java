@@ -30,31 +30,28 @@ public class FindMaxTest extends TestSetup {
 
     public static Stream<Arguments> positiveCasesForFindMaxTest() {
         return Stream.of(
-                Arguments.of((Object) new int[]{0, 1, 2, 3}),
-                Arguments.of((Object) new int[]{1, 1, 1}),
-                Arguments.of((Object) new int[]{-1, -2, -3}),
-                Arguments.of((Object) new int[]{10}));
+                Arguments.of(new int[]{0, 1, 2, 3}, 3),
+                Arguments.of(new int[]{1, 1, 1}, 1),
+                Arguments.of(new int[]{-1, -2, -3}, -1),
+                Arguments.of(new int[]{10}, 10));
     }
 
     @ParameterizedTest
     @MethodSource("positiveCasesForFindMaxTest")
-    public void userCanGetMaxNumberFromArray(int[] array) {
+    public void userCanGetMaxNumberFromArray(int[] array, int expectedValue) {
         int actualValue = methodsForTests.findMax(array);
-        int expectedValue = Arrays.stream(array).max().orElseThrow();
         assertEquals(expectedValue, actualValue);
     }
 
     @Test
     public void userCanNotGetMaxNumberFromNullArray() {
-        assertThrows(NullPointerException.class, () -> {
-            methodsForTests.findMax(null);
-        }, "Getting max value for null array should lead to NullPointerException");
+        assertThrows(NullPointerException.class, () ->
+                methodsForTests.findMax(null), "Getting max value for null array should lead to NullPointerException");
     }
 
     @Test
     public void userCanNotGetMaxNumberFromEmptyArray() {
-        assertThrows(NoSuchElementException.class, () -> {
-            methodsForTests.findMax(new int[]{});
-        }, "Getting max value for empty array should lead to NoSuchElementException");
+        assertThrows(NoSuchElementException.class, () ->
+                methodsForTests.findMax(new int[]{}), "Getting max value for empty array should lead to NoSuchElementException");
     }
 }

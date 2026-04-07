@@ -43,8 +43,7 @@ public class IsLeapYearTest extends TestSetup {
     @Test
     public void userCanNotCheckIsLeapYearForNegativeValue() {
         int year = -100;
-        assertThrows(IllegalArgumentException.class, () -> {
-            methodsForTests.isLeapYear(year);
-        }, "Checking is leap year for negative value should lead to IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () ->
+                methodsForTests.isLeapYear(year), "Checking is leap year for negative value should lead to IllegalArgumentException");
     }
 }

@@ -41,8 +41,7 @@ public class CountVowelsTest extends TestSetup {
 
     @Test
     public void userCanNotGetCountOfVowelsForNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            methodsForTests.countVowels(null);
-        }, "Getting count of vowels chars for null string should lead to IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () ->
+                methodsForTests.countVowels(null), "Getting count of vowels chars for null string should lead to IllegalArgumentException");
     }
 }

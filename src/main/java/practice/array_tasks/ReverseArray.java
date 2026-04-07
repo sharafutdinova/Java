@@ -10,7 +10,7 @@ public class ReverseArray {
     }
 
     public static int[] reverseArray(int[] arr) {
-        return IntStream.range(0, arr.length).map(i->arr[arr.length-i-1]).toArray();
+        return IntStream.range(0, arr.length).map(i -> arr[arr.length - i - 1]).toArray();
     }
 
     public static void printArray(int[] arr) {

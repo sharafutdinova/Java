@@ -34,14 +34,14 @@ public class IsValidEmailTest extends TestSetup {
      */
 
     @ParameterizedTest
-    @ValueSource(strings = {"test@example.com", "123@mail.ru", "123-mail@mail.ru","123.mail@mail.ru","123@subdomain.mail.ru"})
+    @ValueSource(strings = {"test@example.com", "123@mail.ru", "123-mail@mail.ru", "123.mail@mail.ru", "123@subdomain.mail.ru"})
     public void userCanCheckIsEmailValidForValidEmails(String email) {
         boolean actualResult = methodsForTests.isValidEmail(email);
         assertTrue(actualResult);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"bad@.com","bad@mail.c", "@test.com", "123mail.ru", "123@mail", "123 mail@mail.ru", "123mail@@mail.ru",""})
+    @ValueSource(strings = {"bad@.com", "bad@mail.c", "@test.com", "123mail.ru", "123@mail", "123 mail@mail.ru", "123mail@@mail.ru", ""})
     public void userCanCheckIsEmailValidForInvalidEmails(String email) {
         boolean actualResult = methodsForTests.isValidEmail(email);
         assertFalse(actualResult);
@@ -49,8 +49,7 @@ public class IsValidEmailTest extends TestSetup {
 
     @Test
     public void userCanNotCheckIsEmailValidForNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            methodsForTests.isValidEmail(null);
-        }, "Checking is email valid for null value should lead to IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () ->
+                methodsForTests.isValidEmail(null), "Checking is email valid for null value should lead to IllegalArgumentException");
     }
 }

@@ -40,8 +40,7 @@ public class IsValidPhoneNumberTest extends TestSetup {
 
     @Test
     public void userCanNotCheckIsValidPhoneNumberForNull() {
-        assertThrows(NullPointerException.class, () -> {
-            methodsForTests.isValidPhoneNumber(null);
-        }, "Checking is phone valid for null value should lead to NullPointerException");
+        assertThrows(NullPointerException.class, () ->
+                methodsForTests.isValidPhoneNumber(null), "Checking is phone valid for null value should lead to NullPointerException");
     }
 }
