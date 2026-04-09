@@ -20,7 +20,7 @@ public class GradeServiceAddGradeTest extends GradeServiceTest<Number> {
     public void userCanAddValidGradeToEmptyList(int grade) throws InvalidGradeException {
         StudentGrade<Number> studentGrade_expected = new StudentGrade<>("Alsu", "Math", grade);
         service.addGrade(new StudentGrade<>("Alsu", "Math", grade));
-        StudentGrade<Number> studentGrade_actual = (StudentGrade<Number>) service.getGradeList().getFirst();
+        StudentGrade<Number> studentGrade_actual = service.getGradeList().getFirst();
 
         assertEquals(studentGrade_expected, studentGrade_actual);
         assertEquals(1, service.getGradeList().size());
@@ -35,8 +35,8 @@ public class GradeServiceAddGradeTest extends GradeServiceTest<Number> {
         service.addGrade(new StudentGrade<>("Anna", "Bio", 7));
 
         assertEquals(2, service.getGradeList().size());
-        StudentGrade<Number> studentGrade_1_actual = (StudentGrade<Number>) service.getGradeList().getFirst();
-        StudentGrade<Number> studentGrade_2_actual = (StudentGrade<Number>) service.getGradeList().getLast();
+        StudentGrade<Number> studentGrade_1_actual = service.getGradeList().getFirst();
+        StudentGrade<Number> studentGrade_2_actual = service.getGradeList().getLast();
         assertEquals(studentGrade_1_expected, studentGrade_1_actual);
         assertEquals(studentGrade_2_expected, studentGrade_2_actual);
         assertTrue(isStudentsEqual(studentGrade_1_expected, studentGrade_1_actual));

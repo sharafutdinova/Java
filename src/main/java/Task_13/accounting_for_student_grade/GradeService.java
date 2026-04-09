@@ -1,7 +1,5 @@
 package Task_13.accounting_for_student_grade;
 
-import Task_13.user_validation.InvalidUserException;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;

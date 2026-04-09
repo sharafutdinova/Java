@@ -3,8 +3,6 @@ package task_13.accounting_for_student_grade;
 import Task_13.accounting_for_student_grade.InvalidGradeException;
 import Task_13.accounting_for_student_grade.StudentGrade;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 

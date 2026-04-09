@@ -3,8 +3,6 @@ package task_13.accounting_for_student_grade;
 import Task_13.accounting_for_student_grade.InvalidGradeException;
 import Task_13.accounting_for_student_grade.StudentGrade;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -69,7 +67,7 @@ public class GradeServiceGetGradeAverageTest extends GradeServiceTest<Number> {
     @Test
     public void userCanGetGradeAverageForSubjectWithoutGradesInList() throws InvalidGradeException {
         String subject = "bio";
-        service.addGrade(new StudentGrade<Number>("Lena", "Math", 10));
+        service.addGrade(new StudentGrade<>("Lena", "Math", 10));
         service.addGrade(new StudentGrade<>("Alsu", "Geo", 6));
         service.addGrade(new StudentGrade<>("Masha", "Math", 13));
         Double actualAverage = service.getAverageGrade(subject);

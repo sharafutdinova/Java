@@ -1,9 +1,6 @@
 package task_13.films_rating;
 
-import Task_13.accounting_for_student_grade.InvalidGradeException;
-import Task_13.accounting_for_student_grade.StudentGrade;
 import Task_13.films_rating.Movie;
-import Task_13.films_rating.MovieService;
 import Task_13.films_rating.Rating;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

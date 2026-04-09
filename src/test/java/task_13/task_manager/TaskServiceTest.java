@@ -1,6 +1,5 @@
 package task_13.task_manager;
 
-import Task_13.inventory_service.Product;
 import Task_13.task_manager.Task;
 import Task_13.task_manager.TaskService;
 import org.junit.jupiter.api.BeforeEach;

@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TaskServiceFindTaskByPriorityTest extends TaskServiceTest {
+public class TaskServiceFindTaskByPriorityTest<T> extends TaskServiceTest<T> {
     /**
      * Успешный поиск с несколькими результатами
      * Поиск по существующему приоритету
@@ -21,24 +21,24 @@ public class TaskServiceFindTaskByPriorityTest extends TaskServiceTest {
     public void userCanFindTasksByPriority() {
         Task<Integer> baseTask_3 = new Task<>(3, "Checked", "high", new Date());
         Task<Integer> baseTask_4 = new Task<>(4, "Checked", "high", new Date());
-        taskService.addTask(baseTask_1);
-        taskService.addTask(baseTask_2);
-        taskService.addTask(baseTask_3);
-        taskService.addTask(baseTask_4);
-        List<Task> actualTasks = taskService.findTasksByPriority(baseTask_1.getPriority());
+        taskService.addTask((Task<T>) baseTask_1);
+        taskService.addTask((Task<T>) baseTask_2);
+        taskService.addTask((Task<T>) baseTask_3);
+        taskService.addTask((Task<T>) baseTask_4);
+        List<Task<T>> actualTasks = taskService.findTasksByPriority(baseTask_1.getPriority());
         assertEquals(3, actualTasks.size());
     }
 
     @Test
     public void userCannotFindTasksByNotExistsPriority() {
-        taskService.addTask(baseTask_1);
-        List<Task> filteredTasks = taskService.findTasksByPriority("not exists priority");
+        taskService.addTask((Task<T>) baseTask_1);
+        List<Task<T>> filteredTasks = taskService.findTasksByPriority("not exists priority");
         assertEquals(0, filteredTasks.size());
     }
 
     @Test
     public void userCannotFindTaskByPriorityFromEmptyList() {
-        List<Task> filteredTasks = taskService.findTasksByPriority(baseTask_2.getPriority());
+        List<Task<T>> filteredTasks = taskService.findTasksByPriority(baseTask_2.getPriority());
         assertEquals(0, filteredTasks.size());
     }
 

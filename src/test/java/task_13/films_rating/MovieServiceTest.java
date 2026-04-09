@@ -4,7 +4,6 @@ import Task_13.films_rating.Movie;
 import Task_13.films_rating.MovieService;
 import Task_13.films_rating.Rating;
 import org.junit.jupiter.api.BeforeEach;
-import practice_11.StringProcessor;
 
 import java.util.List;
 

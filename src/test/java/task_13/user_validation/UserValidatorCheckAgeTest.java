@@ -3,14 +3,13 @@ package task_13.user_validation;
 import Task_13.user_validation.InvalidUserException;
 import Task_13.user_validation.User;
 import Task_13.user_validation.UserValidator;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class UserValidatorСheckAgeTest {
+public class UserValidatorCheckAgeTest {
 //    Проверка возраста: Возраст должен быть в пределах от 18 до 100 лет.
 //    Управление валидацией: Валидация данных должна происходить только если флаг validationEnabled установлен в true.
 //    Исключения: При обнаружении невалидных данных необходимо выбрасывать InvalidUserException.

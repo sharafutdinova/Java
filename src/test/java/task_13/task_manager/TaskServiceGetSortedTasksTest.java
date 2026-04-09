@@ -3,6 +3,7 @@ package task_13.task_manager;
 import Task_13.task_manager.Task;
 import org.junit.jupiter.api.Test;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,8 @@ public class TaskServiceGetSortedTasksTest<T> extends TaskServiceTest<T> {
 
     @Test
     public void userCanSortListWithSeveralTasks() {
-        Task<Integer> baseTask_3 = new Task<>(3, "Checked", "low", new Date(124, 11, 20));
-        Task<Integer> baseTask_4 = new Task<>(4, "New", "high", new Date(127, 1, 1));
+        Task<Integer> baseTask_3 = new Task<>(3, "Checked", "low", new Date(124, Calendar.NOVEMBER, 20));
+        Task<Integer> baseTask_4 = new Task<>(4, "New", "high", new Date(127, Calendar.JANUARY, 1));
         taskService.addTask((Task<T>) baseTask_1);
         taskService.addTask((Task<T>) baseTask_2);
         taskService.addTask((Task<T>) baseTask_3);
@@ -40,9 +41,9 @@ public class TaskServiceGetSortedTasksTest<T> extends TaskServiceTest<T> {
 
     @Test
     public void userCanSortListWithSameDates() {
-        Task<Integer> baseTask_3 = new Task<>(1, "Checked", "low", new Date(126, 5, 5));
-        Task<Integer> baseTask_4 = new Task<>(2, "Checked", "low", new Date(126, 5, 5));
-        Task<Integer> baseTask_5 = new Task<>(3, "Checked", "low", new Date(126, 5, 5));
+        Task<Integer> baseTask_3 = new Task<>(1, "Checked", "low", new Date(126, Calendar.MARCH, 5));
+        Task<Integer> baseTask_4 = new Task<>(2, "Checked", "low", new Date(126, Calendar.MARCH, 5));
+        Task<Integer> baseTask_5 = new Task<>(3, "Checked", "low", new Date(126, Calendar.MARCH, 5));
         taskService.addTask((Task<T>) baseTask_3);
         taskService.addTask((Task<T>) baseTask_4);
         taskService.addTask((Task<T>) baseTask_5);

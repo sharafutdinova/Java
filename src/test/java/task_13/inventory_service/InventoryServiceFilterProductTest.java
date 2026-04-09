@@ -79,7 +79,7 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Фильтрация в несуществующей категории
     @Test
-    public void userCannotGetFilteredProductsForNotExistCategory() throws OutOfStockException {
+    public void userCannotGetFilteredProductsForNotExistCategory() {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_1);
         assertThrows(OutOfStockException.class, () -> inventoryService.filterProductsByPriceInCategory(baseProduct_2.getCategory(), baseProduct_2.getPrice(), baseProduct_2.getPrice()), "При фильтрации продуктов в несуществующей категории не было исключения OutOfStockException");
@@ -93,7 +93,7 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
         inventoryService.setInventoryOpen(false);
         assertThrows(StockClosedException.class, () -> inventoryService.filterProductsByPriceInCategory(baseProduct_1.getCategory(), baseProduct_1.getPrice(), baseProduct_1.getPrice()), "При фильтрации в закрытом складе не было исключения StockClosedException");
     }
-    
+
     //Фильтрация при min>max
     @Test
     public void userCannotFilterListWhenMinGreaterThanMax() throws IllegalArgumentException {

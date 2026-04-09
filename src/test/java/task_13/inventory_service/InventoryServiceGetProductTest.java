@@ -53,7 +53,7 @@ public class InventoryServiceGetProductTest extends InventoryServiceTest {
     }
 
     @Test
-    public void userCannotGetProductFromNotExistCategoryWhenInventoryOpen() throws OutOfStockException {
+    public void userCannotGetProductFromNotExistCategoryWhenInventoryOpen() {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_1);
         assertThrows(OutOfStockException.class, () -> inventoryService.getProduct(baseProduct_2.getCategory()), "При получении товара, которого нет в списке не было получено исключения OutOfStockException");

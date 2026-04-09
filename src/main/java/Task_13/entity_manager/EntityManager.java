@@ -1,7 +1,6 @@
 package Task_13.entity_manager;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class EntityManager<T extends Entity> {
