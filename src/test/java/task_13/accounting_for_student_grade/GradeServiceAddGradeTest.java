@@ -45,7 +45,7 @@ public class GradeServiceAddGradeTest extends GradeServiceTest<Number> {
 
     @ParameterizedTest
     @ValueSource(ints = {-10, -1})
-    public void userCannotAddInvalidGradeToEmptyList(int grade) throws InvalidGradeException {
+    public void userCannotAddInvalidGradeToEmptyList(int grade) {
         StudentGrade<Number> studentGrade_expected = new StudentGrade<>("Alsu", "Math", grade);
         assertThrows(InvalidGradeException.class, () -> service.addGrade(studentGrade_expected), "При попытке добавления StudentGrade с негативной оценкой не было выброшено исключение  InvalidGradeException");
         assertEquals(0, service.getGradeList().size());
@@ -61,7 +61,7 @@ public class GradeServiceAddGradeTest extends GradeServiceTest<Number> {
     }
 
     @Test
-    public void userCanAddValidGradesFromTwoThreads() throws InvalidGradeException, InterruptedException {
+    public void userCanAddValidGradesFromTwoThreads() throws InterruptedException {
         Thread t1 = new Thread(() -> {
             for (int i = 0; i < 10; i++) {
                 try {
