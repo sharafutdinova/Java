@@ -40,6 +40,7 @@ public class InventoryServiceGetProductTest extends InventoryServiceTest {
         List<Product> categoryProducts = inventoryService.getProducts().get(baseProduct_1.getCategory());
         assertEquals(0, categoryProducts.size());
     }
+
     @Test
     public void userCannotGetProductFromEmptyCategoryWhenInventoryOpen() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
@@ -66,5 +67,17 @@ public class InventoryServiceGetProductTest extends InventoryServiceTest {
         inventoryService.setInventoryOpen(false);
         assertThrows(StockClosedException.class, () -> inventoryService.getProduct(baseProduct_1.getCategory()), "При получении товара, при закрытом складе не было получено исключения StockClosedException");
         assertEquals(1, inventoryService.getProducts().size());
+    }
+
+    @Test
+    public void userCannotGetProductWithNullCategory() {
+        inventoryService.setInventoryOpen(true);
+        assertThrows(IllegalArgumentException.class, () -> inventoryService.getProduct(null), "При получении товара, с категорией = null не было получено исключения IllegalArgumentException");
+    }
+
+    @Test
+    public void userCannotGetProductWithEmptyCategory() {
+        inventoryService.setInventoryOpen(true);
+        assertThrows(IllegalArgumentException.class, () -> inventoryService.getProduct(""), "При получении товара, с пустой категорией не было получено исключения IllegalArgumentException");
     }
 }

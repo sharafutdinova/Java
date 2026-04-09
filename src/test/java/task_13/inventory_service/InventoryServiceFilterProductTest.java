@@ -24,7 +24,7 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Несколько продуктов в отфильтрованном списке, расширение границ цена на 1
     @Test
-    public void userCanGetFilteredSeveralProductsForExistsCategoryWhenInventoryOpen() throws OutOfStockException {
+    public void userCanGetFilteredListForExistsCategoryWhenInventoryOpen() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_2);
         addProductToInventoryService(baseProduct_3);
@@ -36,11 +36,11 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Один продукт в отфильтрованном списке, min и max равны цене
     @Test
-    public void userCanGetFilteredOneProductForExistsCategoryWhenInventoryOpen1() throws OutOfStockException {
+    public void userCanGetFilteredListForExistsCategoryWithPricesEqualToBorder() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_2);
         addProductToInventoryService(baseProduct_3);
-        List<Product> filteredCategory = inventoryService.filterProductsByPriceInCategory(baseProduct_2.getCategory(), baseProduct_2.getPrice(), baseProduct_2.getPrice() );
+        List<Product> filteredCategory = inventoryService.filterProductsByPriceInCategory(baseProduct_2.getCategory(), baseProduct_2.getPrice(), baseProduct_2.getPrice());
         assertEquals(1, filteredCategory.size());
         assertTrue(filteredCategory.contains(baseProduct_2));
         assertFalse(filteredCategory.contains(baseProduct_3));
@@ -48,11 +48,11 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Пустой отфильтрованный спискок, сужение границ цен на 1
     @Test
-    public void userCanGetFilteredOneProductForExistsCategoryWhenInventoryOpen() throws OutOfStockException {
+    public void userCanGetEmptyListWhenPricesLessThanBorder() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_2);
         addProductToInventoryService(baseProduct_3);
-        List<Product> filteredCategory = inventoryService.filterProductsByPriceInCategory(baseProduct_2.getCategory(), baseProduct_2.getPrice() +1, baseProduct_3.getPrice() - 1);
+        List<Product> filteredCategory = inventoryService.filterProductsByPriceInCategory(baseProduct_2.getCategory(), baseProduct_2.getPrice() + 1, baseProduct_3.getPrice() - 1);
         assertEquals(0, filteredCategory.size());
         assertFalse(filteredCategory.contains(baseProduct_2));
         assertFalse(filteredCategory.contains(baseProduct_3));
@@ -60,7 +60,7 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Пустой отфильтрованный список для существующей категории
     @Test
-    public void userCanGetEmptyFilteredListWhenPricesOutOfRangeWhenInventoryOpen() throws OutOfStockException {
+    public void userCanGetEmptyListWhenPricesGreaterThanBorder() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_2);
         addProductToInventoryService(baseProduct_3);
@@ -70,7 +70,7 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Фильтрация в пустой категории
     @Test
-    public void userCannotGetFilteredProductsForEmptyCategoryWhenInventoryOpen() throws OutOfStockException {
+    public void userCannotGetFilteredProductsForEmptyCategory() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_1);
         inventoryService.getProduct(baseProduct_1.getCategory());
@@ -79,18 +79,10 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
 
     //Фильтрация в несуществующей категории
     @Test
-    public void userCannotGetFilteredProductsForNotExistCategoryWhenInventoryOpen() throws OutOfStockException {
+    public void userCannotGetFilteredProductsForNotExistCategory() throws OutOfStockException {
         inventoryService.setInventoryOpen(true);
         addProductToInventoryService(baseProduct_1);
         assertThrows(OutOfStockException.class, () -> inventoryService.filterProductsByPriceInCategory(baseProduct_2.getCategory(), baseProduct_2.getPrice(), baseProduct_2.getPrice()), "При фильтрации продуктов в несуществующей категории не было исключения OutOfStockException");
-    }
-
-    //Фильтрация при min>max
-    @Test
-    public void userCannotGetFilteredProductsWhenMinGreaterThanMaxWhenInventoryOpen() throws IllegalArgumentException {
-        inventoryService.setInventoryOpen(true);
-        addProductToInventoryService(baseProduct_1);
-        assertThrows(IllegalArgumentException.class, () -> inventoryService.filterProductsByPriceInCategory(baseProduct_1.getCategory(), baseProduct_1.getPrice(), baseProduct_1.getPrice() - 1), "При фильтрации со значениями min > max не было исключения IllegalArgumentException");
     }
 
     //Фильтрация при закрытом складе
@@ -100,5 +92,24 @@ public class InventoryServiceFilterProductTest extends InventoryServiceTest {
         addProductToInventoryService(baseProduct_1);
         inventoryService.setInventoryOpen(false);
         assertThrows(StockClosedException.class, () -> inventoryService.filterProductsByPriceInCategory(baseProduct_1.getCategory(), baseProduct_1.getPrice(), baseProduct_1.getPrice()), "При фильтрации в закрытом складе не было исключения StockClosedException");
+    }
+    
+    //Фильтрация при min>max
+    @Test
+    public void userCannotFilterListWhenMinGreaterThanMax() throws IllegalArgumentException {
+        inventoryService.setInventoryOpen(true);
+        assertThrows(IllegalArgumentException.class, () -> inventoryService.filterProductsByPriceInCategory("base", 100.0, 90.0), "При фильтрации со значениями min > max не было исключения IllegalArgumentException");
+    }
+
+    @Test
+    public void userCannotFilterListByNullCategory() {
+        inventoryService.setInventoryOpen(true);
+        assertThrows(IllegalArgumentException.class, () -> inventoryService.filterProductsByPriceInCategory(null, 10.0, 100.0), "При получении списка товаров с категорией = null не было получено исключения IllegalArgumentException");
+    }
+
+    @Test
+    public void userCannotFilterListByEmptyCategory() {
+        inventoryService.setInventoryOpen(true);
+        assertThrows(IllegalArgumentException.class, () -> inventoryService.filterProductsByPriceInCategory("", 10.0, 100.0), "При получении списка товаров с пустой категорией не было получено исключения IllegalArgumentException");
     }
 }

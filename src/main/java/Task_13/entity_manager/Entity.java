@@ -8,6 +8,8 @@ public class Entity {
     private boolean isActive;
 
     public Entity(String name, int age, boolean isActive) {
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("Имя не может быть null или пустым");
         this.name = name;
         this.age = age;
         this.isActive = isActive;

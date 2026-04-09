@@ -14,12 +14,13 @@ public class UserValidatorСheckAgeTest {
 //    Проверка возраста: Возраст должен быть в пределах от 18 до 100 лет.
 //    Управление валидацией: Валидация данных должна происходить только если флаг validationEnabled установлен в true.
 //    Исключения: При обнаружении невалидных данных необходимо выбрасывать InvalidUserException.
+
     /**
-     * Валидный возраст с вкл. флагом 30
-     * Валидный возраст с выкл. флагом 30
-     * Валидные граничные значения с вкл. флагом 18, 100
-     * Невалидные граничные значения с вкл. флагом 17, 101
-     * Невалидный возраст с выкл. флагом 0
+     * Валидный возраст с вкл. флагом - 30
+     * Валидный возраст с выкл. флагом - 30
+     * Валидные граничные значения с вкл. флагом - 18, 100
+     * Невалидные граничные значения с вкл. флагом - 17, 101 -> InvalidUserException
+     * Невалидный возраст с выкл. флагом - 0
      */
 
     @ParameterizedTest
@@ -51,6 +52,6 @@ public class UserValidatorСheckAgeTest {
     public void userCanCheckInvalidAgeWithTurnedOnFlag(int age) {
         UserValidator.setValidationEnabled(true);
         User user = new User("Алсу", age, "Al@mail.ru");
-        assertThrows(InvalidUserException.class,() -> UserValidator.checkAge(user), "При проверке невалидного возраста с включенным флагом не выбросилось исключение InvalidUserException");
+        assertThrows(InvalidUserException.class, () -> UserValidator.checkAge(user), "При проверке невалидного возраста с включенным флагом не выбросилось исключение InvalidUserException");
     }
 }

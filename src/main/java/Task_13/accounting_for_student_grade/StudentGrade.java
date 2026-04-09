@@ -8,6 +8,10 @@ public class StudentGrade<T extends Number> {
     private T grade;
 
     public StudentGrade(String name, String subject, T grade) {
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("Name не может быть null или пустым");
+        if (subject == null || subject.isEmpty())
+            throw new IllegalArgumentException("Subject не может быть null или пустым");
         this.name = name;
         this.subject = subject;
         this.grade = grade;

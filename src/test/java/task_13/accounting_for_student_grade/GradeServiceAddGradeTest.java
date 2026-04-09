@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GradeServiceAddGradeTest extends GradeServiceTest {
+public class GradeServiceAddGradeTest extends GradeServiceTest<Number> {
     /**
      * Проверки
      * Валидные оценки 0, 10.0, 100

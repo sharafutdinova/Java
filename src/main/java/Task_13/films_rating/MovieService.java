@@ -4,16 +4,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MovieService<T extends Number> {
-    private Map<Movie, List<Rating>> filmsRating = new HashMap<>();
+    private Map<Movie, List<Rating<T>>> filmsRating = new HashMap<>();
 
-    public Map<Movie, List<Rating>> getFilmsRating() {
+    public Map<Movie, List<Rating<T>>> getFilmsRating() {
         return filmsRating;
     }
 
     public synchronized void addRating(Movie movie, Rating<T> rating) {
-        Double ratingValue = rating.getRating().doubleValue();
-        if (ratingValue >= 0 && ratingValue <= 10) {
-            List<Rating> ratingForFilm;
+        double ratingValue = rating.getRating().doubleValue();
+        if (movie == null) throw new NullPointerException("Фильм не может быть null");
+        if (ratingValue > 0 && ratingValue <= 10) {
+            List<Rating<T>> ratingForFilm;
             if (filmsRating.containsKey(movie)) {
                 ratingForFilm = filmsRating.get(movie);
             } else {
@@ -21,11 +22,12 @@ public class MovieService<T extends Number> {
             }
             ratingForFilm.add(rating);
             filmsRating.put(movie, ratingForFilm);
-        } else throw new IllegalArgumentException("Рейтинг может быть в диапазоне от 0 до 10.");
+        } else throw new IllegalArgumentException("Рейтинг может быть в диапазоне от 1 до 10.");
     }
 
     public Double getAverageRatingForFilm(Movie movie) {
-        List<Rating> rating = filmsRating.get(movie);
+        if (movie == null) throw new NullPointerException("Фильм не может быть null");
+        List<Rating<T>> rating = filmsRating.get(movie);
         return rating.stream()
                 .mapToDouble(r -> r.getRating().doubleValue())
                 .average()

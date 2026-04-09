@@ -17,7 +17,7 @@ public class MovieServiceTest {
     }
 
     public Double calculateAverageRatingForFilm(Movie movie) {
-        List<Rating> rating = movieService.getFilmsRating().get(movie);
+        List<Rating<Number>> rating = movieService.getFilmsRating().get(movie);
         return rating.stream()
                 .mapToDouble(r -> r.getRating().doubleValue())
                 .average()

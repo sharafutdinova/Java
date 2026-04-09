@@ -36,7 +36,7 @@ public class InventoryServiceAddProductTest extends InventoryServiceTest {
     }
 
     @Test
-    public void userCanAddNewProductToListWhenInventoryOpen() {
+    public void userCanAddProductToNotEmptyListWhenInventoryOpen() {
         inventoryService.setInventoryOpen(true);
         String category_1 = baseProduct_1.getCategory();
         String category_2 = baseProduct_2.getCategory();
@@ -96,5 +96,12 @@ public class InventoryServiceAddProductTest extends InventoryServiceTest {
         Product actualProduct_1 = inventoryService.getProducts().get(category_1).getFirst();
         assertTrue(compareProduct(baseProduct_1, actualProduct_1), "Ожидаемый и актуальный товары не равны");
         assertFalse(inventoryService.getProducts().containsKey(category_2));
+    }
+
+    @Test
+    public void userCanNotAddNullProduct() {
+        inventoryService.setInventoryOpen(true);
+        assertThrows(IllegalArgumentException.class, () -> inventoryService.addProduct(null), "При добавлении товара=null не было исключения IllegalArgumentException");
+        assertEquals(0, inventoryService.getProducts().size());
     }
 }

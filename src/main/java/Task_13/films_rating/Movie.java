@@ -7,6 +7,10 @@ public class Movie {
     private String genre;
 
     public Movie(String name, String genre) {
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("Название не может быть null или пустым");
+        if (genre == null || genre.isEmpty())
+            throw new IllegalArgumentException("Жанр не может быть null или пустым");
         this.name = name;
         this.genre = genre;
     }

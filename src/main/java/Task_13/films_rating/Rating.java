@@ -6,6 +6,8 @@ public class Rating<T extends Number> {
     private T rating;
 
     public Rating(T rating) {
+        if (rating == null)
+            throw new IllegalArgumentException("Рейтинг не может быть null");
         this.rating = rating;
     }
 

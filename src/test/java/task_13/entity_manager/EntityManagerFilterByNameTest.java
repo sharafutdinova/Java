@@ -14,7 +14,7 @@ public class EntityManagerFilterByNameTest extends EntityManagerTest {
      * Фильтрация по несуществующему имени в списке
      * Фильтрация с 1 совпадением
      * Фильтрация с несколькими совпадениями
-     * Фильтрация по пустому имени и null
+     * Фильтрация по пустому имени и null -> IllegalArgumentException
      */
     @Test
     public void userCanFilterListByExistName() {
@@ -26,7 +26,7 @@ public class EntityManagerFilterByNameTest extends EntityManagerTest {
     }
 
     @Test
-    public void userCanFilterListByExistNameWithSeveralMathes() {
+    public void userCanFilterListByExistNameWithSeveralMatches() {
         Entity baseEntity_3 = new Entity("Alsu", 34, true);
         Entity baseEntity_4 = new Entity("Alsu", 12, false);
         entityManager.addEntity(baseEntity_1);
@@ -47,25 +47,20 @@ public class EntityManagerFilterByNameTest extends EntityManagerTest {
     }
 
     @Test
-    public void userCanFilterListByEmptyName() {
-        entityManager.addEntity(baseEntity_1);
-        Entity baseEntity_2 = new Entity("", 12, false);
-        entityManager.addEntity(baseEntity_2);
-        List<Entity> filteredEntities = entityManager.filterByName("");
-        assertEquals(1, filteredEntities.size());
-        assertEquals("", filteredEntities.getLast().getName());
-    }
-
-    @Test
     public void userCanFilterEmptyList() {
         List<Entity> filteredEntities = entityManager.filterByName("Not Exist");
         assertEquals(0, filteredEntities.size());
     }
+
+    @Test
+    public void userCannotFilterListByEmptyName() {
+        assertThrows(IllegalArgumentException.class, () -> entityManager.filterByName(""),
+                "При фильтрации с пустым имененем не было IllegalArgumentException");
+    }
+
     @Test
     public void userCannotFilterListByNullName() {
-        entityManager.addEntity(baseEntity_1);
-        Entity baseEntity_2 = new Entity(null, 12, false);
-        entityManager.addEntity(baseEntity_2);
-        assertThrows(NullPointerException.class, ()->entityManager.filterByName(null), "При фильтрации с null имененем не было NullPointerException");
+        assertThrows(IllegalArgumentException.class, () -> entityManager.filterByName(null),
+                "При фильтрации с null имененем не было IllegalArgumentException");
     }
 }

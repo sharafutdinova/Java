@@ -8,22 +8,22 @@ import org.junit.jupiter.api.BeforeEach;
 import java.util.Date;
 import java.util.List;
 
-public class TaskServiceTest {
-    protected TaskService taskService;
+public class TaskServiceTest<T> {
+    protected TaskService<T> taskService;
     protected Task<Integer> baseTask_1 = new Task<>(1, "Checked", "high", new Date());
     protected Task<String> baseTask_2 = new Task<>("First", "new", "medium", new Date());
 
     @BeforeEach
     public void testSetup() {
-        taskService = new TaskService();
+        taskService = new TaskService<>();
     }
 
-    public boolean compareTask(Task expected, Task actual) {
+    public boolean compareTask(Task<T> expected, Task<T> actual) {
         return expected.getID().equals(actual.getID()) && expected.getDate().equals(actual.getDate())
                 && expected.getPriority().equals(actual.getPriority()) && expected.getState().equals(actual.getState());
     }
 
-    public List<Task> filterTasks(List<Task> tasks, String state, String priority) {
+    public List<Task<T>> filterTasks(List<Task<T>> tasks, String state, String priority) {
         return tasks.stream().filter(task -> task.getState().equals(state) && task.getPriority().equals(priority)).toList();
     }
 }

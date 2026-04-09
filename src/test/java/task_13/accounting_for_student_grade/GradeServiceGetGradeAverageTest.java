@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class GradeServiceGetGradeAverageTest extends GradeServiceTest {
+public class GradeServiceGetGradeAverageTest extends GradeServiceTest<Number> {
     /**
      * Тесты для метода вычисления среднего
      * Среднее для предмета где 1 оценка для предмета в списке где 1 предмет
@@ -17,7 +17,7 @@ public class GradeServiceGetGradeAverageTest extends GradeServiceTest {
      * Среднее для предмета где несколько одинаковых оценок в списке где несколько предметов
      * Среднее для предмета где несколько разных оценок в списке где несколько предметов
      * Среднее для предмета где нет оценок
-     * Среднее для предмета "" и null
+     * Среднее для предмета "" и null -> IllegalArgumentException
      */
 
     @Test
@@ -66,10 +66,10 @@ public class GradeServiceGetGradeAverageTest extends GradeServiceTest {
         assertEquals(expectedGrade, actualAverage);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"bio", ""})
-    public void userCanGetGradeAverageForSubjectWithoutGradesInListAndEmptySubject(String subject) throws InvalidGradeException {
-        service.addGrade(new StudentGrade<>("Lena", "Math", 10));
+    @Test
+    public void userCanGetGradeAverageForSubjectWithoutGradesInList() throws InvalidGradeException {
+        String subject = "bio";
+        service.addGrade(new StudentGrade<Number>("Lena", "Math", 10));
         service.addGrade(new StudentGrade<>("Alsu", "Geo", 6));
         service.addGrade(new StudentGrade<>("Masha", "Math", 13));
         Double actualAverage = service.getAverageGrade(subject);
@@ -77,10 +77,16 @@ public class GradeServiceGetGradeAverageTest extends GradeServiceTest {
     }
 
     @Test
-    public void userCanGetGradeAverageForNullSubject() throws InvalidGradeException {
+    public void userCannotGetGradeAverageForNullSubject() {
         String subject = null;
-        service.addGrade(new StudentGrade<>("Alsu", subject, 7.5));
-        service.addGrade(new StudentGrade<>("Alsu", "Geo", 6.0));
-        assertThrows(NullPointerException.class, () -> service.getAverageGrade(subject), "При вычислении средней оценки для null предмета не было исключения NullPointerException");
+        assertThrows(IllegalArgumentException.class, () -> service.getAverageGrade(subject),
+                "При вычислении средней оценки для null предмета не было исключения IllegalArgumentException");
+    }
+
+    @Test
+    public void userCannotGetGradeAverageForEmptySubject() {
+        String subject = "";
+        assertThrows(IllegalArgumentException.class, () -> service.getAverageGrade(subject),
+                "При вычислении средней оценки для пустого предмета не было исключения IllegalArgumentException");
     }
 }

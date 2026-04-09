@@ -10,7 +10,10 @@ public class Task<T> {
     private Date date;
 
     public Task(T ID, String state, String priority, Date date) {
-        if (ID == null) throw new IllegalArgumentException("ID cannot be null");
+        if (ID == null) throw new IllegalArgumentException("ID не может быть null");
+        if (priority == null || priority.isEmpty())
+            throw new IllegalArgumentException("Priority не может быть пустым или null");
+        if (state == null || state.isEmpty()) throw new IllegalArgumentException("State не может быть пустым или null");
         this.ID = ID;
         this.state = state;
         this.priority = priority;

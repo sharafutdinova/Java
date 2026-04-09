@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskServiceFindTaskByIDTest extends TaskServiceTest {
+public class TaskServiceFindTaskByIDTest<T> extends TaskServiceTest<T> {
     /**
      * Поиск задач с разными типами ID
      * Поиск существующей задачи в списке
@@ -15,30 +15,38 @@ public class TaskServiceFindTaskByIDTest extends TaskServiceTest {
      */
     @Test
     public void userCanFindTaskByIDFromList() {
-        taskService.addTask(baseTask_1);
-        Task actualTask = taskService.findTaskById(baseTask_1.getID());
-        assertTrue(compareTask(baseTask_1, actualTask));
+        taskService.addTask((Task<T>) baseTask_1);
+        Task<T> actualTask = taskService.findTaskById((T) baseTask_1.getID());
+        assertTrue(compareTask((Task<T>) baseTask_1, actualTask));
     }
 
     @Test
     public void userCanFindTasksWithDifferentIDFromList() {
-        taskService.addTask(baseTask_1);
-        taskService.addTask(baseTask_2);
-        Task actualTask_1 = taskService.findTaskById(baseTask_1.getID());
-        assertTrue(compareTask(baseTask_1, actualTask_1));
-        Task actualTask_2 = taskService.findTaskById(baseTask_2.getID());
-        assertTrue(compareTask(baseTask_2, actualTask_2));
+        taskService.addTask((Task<T>) baseTask_1);
+        taskService.addTask((Task<T>) baseTask_2);
+        Task<T> actualTask_1 = taskService.findTaskById((T) baseTask_1.getID());
+        assertTrue(compareTask((Task<T>) baseTask_1, actualTask_1));
+        Task<T> actualTask_2 = taskService.findTaskById((T) baseTask_2.getID());
+        assertTrue(compareTask((Task<T>) baseTask_2, actualTask_2));
         assertEquals(2, taskService.getTasks().size());
     }
 
     @Test
     public void userCannotFindNotExistsTaskFromList() {
-        taskService.addTask(baseTask_1);
-        assertThrows(NoSuchElementException.class, () -> taskService.findTaskById(baseTask_2.getID()), "При поиске несуществующей задачи не было исключения NoSuchElementException");
+        taskService.addTask((Task<T>) baseTask_1);
+        assertThrows(NoSuchElementException.class, () -> taskService.findTaskById((T) baseTask_2.getID()),
+                "При поиске несуществующей задачи не было исключения NoSuchElementException");
     }
 
     @Test
     public void userCannotFindNotExistsTaskFromEmptyList() {
-        assertThrows(NoSuchElementException.class, () -> taskService.findTaskById(baseTask_2.getID()), "При поиске в пустом списке не было исключения NoSuchElementException");
+        assertThrows(NoSuchElementException.class, () -> taskService.findTaskById((T) baseTask_2.getID()),
+                "При поиске в пустом списке не было исключения NoSuchElementException");
+    }
+
+    @Test
+    public void userCannotFindTasksByNullID() {
+        assertThrows(IllegalArgumentException.class, () -> taskService.findTaskById(null),
+                "При фильтрации по Id = null не было выброшено исключение IllegalArgumentException");
     }
 }

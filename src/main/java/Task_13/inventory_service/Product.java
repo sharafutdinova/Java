@@ -8,6 +8,10 @@ public class Product {
     private String category;
 
     public Product(String name, double price, String category) {
+        if (name == null || name.isEmpty())
+            throw new IllegalArgumentException("Название не может быть null или пустым");
+        if (category == null || category.isEmpty())
+            throw new IllegalArgumentException("Категория не может быть null или пустым");
         this.name = name;
         this.price = price;
         this.category = category;

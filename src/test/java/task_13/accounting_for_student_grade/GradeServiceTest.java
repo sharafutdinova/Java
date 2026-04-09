@@ -17,7 +17,6 @@ public class GradeServiceTest<T extends Number> {
     public double getAverageForSubject(GradeService<Number> service, String subject) {
         return service.getGradeList().stream().filter(grade -> grade.getSubject().
                 equals(subject)).map(StudentGrade::getGrade).collect(Collectors.averagingDouble((Number::doubleValue)));
-
     }
 
     public boolean isStudentsEqual(StudentGrade<Number> studentGrade_expected, StudentGrade<Number> studentGrade_actual) {

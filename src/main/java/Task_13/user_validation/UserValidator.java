@@ -1,5 +1,7 @@
 package Task_13.user_validation;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 public class UserValidator {
@@ -18,16 +20,12 @@ public class UserValidator {
 //    Проверка email: Email должен соответствовать стандартному формату электронной почты.
 //    Управление валидацией: Валидация данных должна происходить только если флаг validationEnabled установлен в true.
 //    Исключения: При обнаружении невалидных данных необходимо выбрасывать InvalidUserException.
+    @Getter
     private static boolean validationEnabled = true;
-
-    public static boolean isValidationEnabled() {
-        return validationEnabled;
-    }
 
     public static void setValidationEnabled(boolean validationEnabled) {
         UserValidator.validationEnabled = validationEnabled;
     }
-
 
     public static void checkName(User user) throws InvalidUserException {
         if (validationEnabled) {
@@ -36,7 +34,6 @@ public class UserValidator {
             if (isCorrect) isCorrect = Character.isUpperCase(name.charAt(0));
             if (!isCorrect)
                 throw new InvalidUserException("Некорректное имя пользователя, имя должно быть не пустым и с заглавной буквы.");
-            else System.out.println("Имя пользователя корректное");
         }
     }
 
@@ -46,7 +43,6 @@ public class UserValidator {
             boolean isCorrect = age >= 18 && age <= 100;
             if (!isCorrect)
                 throw new InvalidUserException("Некорректный возраст пользователя, должен быть в диапазоне от 18 до 100.");
-            else System.out.println("Возраст пользователя корректный");
         }
     }
 
@@ -55,7 +51,6 @@ public class UserValidator {
             String email = user.getEmail();
             boolean isCorrect = email != null && email.matches("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$");
             if (!isCorrect) throw new InvalidUserException("Некорректный формат email пользователя");
-            else System.out.println("Почта пользователя корректная");
         }
     }
 }

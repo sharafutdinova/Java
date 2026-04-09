@@ -46,22 +46,21 @@ public class MovieServiceGetAverageRatingForFilmTest extends MovieServiceTest {
         Movie movie = new Movie("Action", "Drama");
         movieService.addRating(new Movie("Another", "Comedy"), new Rating<>(6));
         movieService.addRating(new Movie("New", "Comedy"), new Rating<>(8));
-        assertThrows(NullPointerException.class, () -> movieService.getAverageRatingForFilm(movie), "При вычислении рейтинга для фильма, которого нет в списке, не выбрасывается исключение NullPointerException");
+        assertThrows(NullPointerException.class, () -> movieService.getAverageRatingForFilm(movie),
+                "При вычислении рейтинга для фильма, которого нет в списке, не выбрасывается исключение NullPointerException");
     }
 
     @Test
     public void userCannotGetAverageRatingForEmptyList() {
         Movie movie = new Movie("Action", "Drama");
-        assertThrows(NullPointerException.class, () -> movieService.getAverageRatingForFilm(movie), "При вычислении рейтинга для фильма, в пустом списке, не выбрасывается исключение NullPointerException");
+        assertThrows(NullPointerException.class, () -> movieService.getAverageRatingForFilm(movie),
+                "При вычислении рейтинга для фильма, в пустом списке, не выбрасывается исключение NullPointerException");
     }
 
     @Test
-    public void userCanGetAverageRatingForNullFilm() {
+    public void userCannotGetAverageRatingForNullFilm() {
         Movie movie = null;
-        movieService.addRating(new Movie("Another", "Comedy"), new Rating<>(6));
-        movieService.addRating(null, new Rating<>(8));
-        Double expectedAverageValue = calculateAverageRatingForFilm(movie);
-        Double actualAverageValue = movieService.getAverageRatingForFilm(movie);
-        assertEquals(expectedAverageValue, actualAverageValue);
+        assertThrows(NullPointerException.class, () -> movieService.getAverageRatingForFilm(movie),
+                "При вычислении рейтинга для null фильма не выбрасывается исключение NullPointerException");
     }
 }
