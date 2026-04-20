@@ -5,7 +5,9 @@ public class DebugTask4 {
         String str = "testString";
         System.out.println(isPalindrome(str));
     }
+
     public static boolean isPalindrome(String str) {
+        if (str == null) return false;
         String reversed = new StringBuilder(str).reverse().toString();
         return str.equals(reversed);
     }
